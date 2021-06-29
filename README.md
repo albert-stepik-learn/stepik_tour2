@@ -9,7 +9,7 @@ Project2 for the Stepik Django course
 3. Run
 
   ```
-  ./manage runserver
+  ./manage.py runserver
   ```
 
 4. In your browser open http://localhost:8000
