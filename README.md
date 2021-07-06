@@ -13,3 +13,5 @@ Project2 for the Stepik Django course
   ```
 
 4. In your browser open http://localhost:8000
+
+

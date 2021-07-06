@@ -1,7 +1,4 @@
-import sys
 from django.shortcuts import render
-
-import tours.views
 from tours import data
 
 
@@ -9,7 +6,8 @@ from tours import data
 deps = {}
 for dep, val in data.departures.items():
     deps[dep] = {
-        'title': 'Летим ' + val.replace('Из', 'из'),
+        'title': data.title,
+        'dep_title': 'Летим ' + val.replace('Из', 'из'),
         'tours': {},
         'departures': data.departures,
         'departure': dep
@@ -36,19 +34,18 @@ def main_view(request):
         'departures': data.departures,
         'tours': data.tours
     }
-    return render(request, "index.html", context=context)
+    return render(request, "tours/index.html", context=context)
 
 
 def departure_view(request, departure):
-    return render(request, "departure.html", context=deps[departure])
+    return render(request, "tours/departure.html", context=deps[departure])
 
 
-def tour_view(request, id):
-    # tour = data.tours[id]
-    # tour['stars'] = chr(0x2605) * int(tour['stars'])
+def tour_view(request, tour_id):
     context = {
-        'id': id,
+        'title': data.title,
+        'tour_id': tour_id,
         'departures': data.departures,
-        'tour': data.tours[id]
+        'tour': data.tours[tour_id]
     }
-    return render(request, 'tour.html', context=context)
+    return render(request, 'tours/tour.html', context=context)
