@@ -57,10 +57,27 @@ To use this application, go through the following steps:
 
 This is how it works in the project.
 
-1. In the project folder, create the **templatetags** folder.
+1. In the project folder (or maybe in the app folder), create the **templatetags** folder.
 2. In **templatetags**, create **__init__.py**.
 3. In **templatetags**, create **  ru_pluralize.py**, whose content is in this project.
 4. In the template, after {% extends ...%}, add the module loading {% load ru_pluralize %}.
 5. Example of the use:  {{ days|ru_pluralize:"день, дня, дней" }}
    
+## Custom Context Processor
+
+0. In the application folder (``tours``, in this project), create a module with your custom processor,
+   e.g., ``custom_context_processor.py``.
+0. In this module, add the content as in this project.
+0. In the ``settings.py`` file, add the custom Context Processor to the list of Custom Processors:
+
+   ```bazaar
+      'tours.custom_context_processor.common_context'
+   ```
+0. In a template (``base.html``, in this project), use the context parameters defined in the custom processor, e.g.:
+
+   ```bazaar
+      <title>{{ main_title }}</title>
+   ```
+
 That's it. See you in the next project.
+

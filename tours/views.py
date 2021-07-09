@@ -36,10 +36,8 @@ def main_view(request):
     tours = {k: data.tours[k] for k in tkeys}
 
     context = {
-        'title': data.title,
         'subtitle': data.subtitle,
         'description': data.description,
-        'departures': data.departures,
         'tours': tours
     }
     return render(request, "tours/index.html", context=context)
@@ -51,9 +49,7 @@ def departure_view(request, departure):
 
 def tour_view(request, tour_id):
     context = {
-        'title': data.title,
         'tour_id': tour_id,
-        'departures': data.departures,
         'tour': data.tours[tour_id]
     }
     return render(request, 'tours/tour.html', context=context)
