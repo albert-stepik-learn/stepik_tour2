@@ -1,11 +1,17 @@
 {% extends "tours/base.html" %}
+{% load ru_pluralize %}
 {% block main %}
   <main class="container">
     <section class="mt-3 pb-5">
+      <a href="{{ request.META.HTTP_REFERER }}">Назад</a>
       <h1 class="display-3 mt-4">{{ tour.title }} {{ tour.stars }} &#x2605;</h1>
       <!-- HERO -->
-      <p class="lead"><ul class="list-inline"><li class="list-inline-item">{{ tour.country }}</li> <li class="list-inline-item">
-      {{ tour.nights }} ночей</li></p>
+      <p class="lead">
+        <ul class="list-inline">
+          <li class="list-inline-item">{{ tour.country }}</li>
+          <li class="list-inline-item">{{ tour.nights|ru_pluralize:"ночь, ночи, ночей" }}</li>
+        </ul>
+      </p>
       <img src="{{ tour.picture }}" class="w-75" alt="">
       <p class="my-4 w-75">{{ tour.description }}</p>
       <a href="#" class="btn btn-success btn-lg">Купить тур за {{ tour.price }}</a>

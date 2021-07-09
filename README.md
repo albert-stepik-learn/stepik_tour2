@@ -52,5 +52,15 @@ To use this application, go through the following steps:
     -   http://localhost:8000/
     -   http://localhost:8000/departure/nsk/
     -   http://localhost:8000/tour/1/
-    
-That's it. See you in Project 3.
+ 
+## Pluralize countable nouns
+
+This is how it works in the project.
+
+1. In the project folder, create the **templatetags** folder.
+2. In **templatetags**, create **__init__.py**.
+3. In **templatetags**, create **  ru_pluralize.py**, whose content is in this project.
+4. In the template, after {% extends ...%}, add the module loading {% load ru_pluralize %}.
+5. Example of the use:  {{ days|ru_pluralize:"день, дня, дней" }}
+   
+That's it. See you in the next project.

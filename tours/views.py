@@ -1,4 +1,7 @@
+import random
+
 from django.shortcuts import render
+
 from tours import data
 
 
@@ -12,8 +15,8 @@ for dep, val in data.departures.items():
         'departures': data.departures,
         'departure': dep
     }
-for tid, t in data.tours.items():
-    deps[t['departure']]['tours'][tid] = t
+for tid, tour in data.tours.items():
+    deps[tour['departure']]['tours'][tid] = tour
 for dep, val in deps.items():
     deps[dep]['tnumber'] = len(val['tours'])
     deps[dep]['price_min'] = f"{min([t['price'] for t in val['tours'].values()]):,}".replace(',', ' ')
@@ -27,12 +30,17 @@ for tour in data.tours.values():
 
 
 def main_view(request):
+    # Get 6 random tours:
+    keys = data.tours.keys()
+    tkeys = random.sample(keys, len(keys))[:6]
+    tours = {k: data.tours[k] for k in tkeys}
+
     context = {
         'title': data.title,
         'subtitle': data.subtitle,
         'description': data.description,
         'departures': data.departures,
-        'tours': data.tours
+        'tours': tours
     }
     return render(request, "tours/index.html", context=context)
 
