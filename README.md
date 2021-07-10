@@ -44,7 +44,7 @@ To use this application, go through the following steps:
 0. Run the application:
 
     ```bazaar
-    ./manage.py runserver
+    python manage runserver
     ```
    
 0. Address your browser to the following URLs:
@@ -71,12 +71,22 @@ This is how it works in the project.
 0. In the ``settings.py`` file, add the custom Context Processor to the list of Custom Processors:
 
    ```bazaar
-      'tours.custom_context_processor.common_context'
+   tours.custom_context_processor.common_context'
    ```
 0. In a template (``base.html``, in this project), use the context parameters defined in the custom processor, e.g.:
 
    ```bazaar
-      <title>{{ main_title }}</title>
+   <title>{{ main_title }}</title>
+   ```
+
+## Random Tour Selection
+
+The main page shows 6 random tours that the view code selects as follows:
+
+   ```bazaar
+    keys = data.tours.keys()
+    tkeys = random.sample(keys, len(keys))[:6]
+    tours = {k: data.tours[k] for k in tkeys}
    ```
 
 That's it. See you in the next project.
