@@ -1,5 +1,6 @@
 {% extends "tours/base.html" %}
 {% load ru_pluralize %}
+{% load sep1000 %}
 {% block main %}
   <main class="container mt-3">
     <h1 class="display-5 mt-4">{{ dep_title }}</h1>
@@ -20,7 +21,7 @@
           </div>
           <div class="card-footer">
             <ul class="list-inline">
-              <li class="list-inline-item">{{ tour.date }}, {{ tour.nights }}, {{ tour.price }} Р</li>
+              <li class="list-inline-item">{{ tour.date }}, {{ tour.nights }}, {{ tour.price|sep1000 }} Р</li>
               <li class="list-inline-item float-right">{{ tour.stars }} &#x2605;</li>
             </ul>
           </div>

@@ -6,11 +6,6 @@ from django.shortcuts import render
 from tours import data
 
 
-# Format prices - separate thousands
-for tour in data.tours.values():
-    tour['price'] = f"{tour['price']:,}".replace(',', ' ')
-
-
 def main_view(request):
     tours = dict(random.sample(data.tours.items(), 6))
 
