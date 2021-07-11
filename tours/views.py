@@ -1,28 +1,10 @@
 import random
 
+from django.http import Http404
 from django.shortcuts import render
 
 from tours import data
 
-
-# Prepare data for the departure_view:
-deps = {}
-for dep, val in data.departures.items():
-    deps[dep] = {
-        'title': data.title,
-        'dep_title': 'Летим ' + val.replace('Из', 'из'),
-        'tours': {},
-        'departures': data.departures,
-        'departure': dep
-    }
-for tid, tour in data.tours.items():
-    deps[tour['departure']]['tours'][tid] = tour
-for dep, val in deps.items():
-    deps[dep]['tnumber'] = len(val['tours'])
-    deps[dep]['price_min'] = f"{min([t['price'] for t in val['tours'].values()]):,}".replace(',', ' ')
-    deps[dep]['price_max'] = f"{max([t['price'] for t in val['tours'].values()]):,}".replace(',', ' ')
-    deps[dep]['nights_min'] = min([t['nights'] for t in val['tours'].values()])
-    deps[dep]['nights_max'] = max([t['nights'] for t in val['tours'].values()])
 
 # Format prices - separate thousands
 for tour in data.tours.values():
@@ -30,10 +12,7 @@ for tour in data.tours.values():
 
 
 def main_view(request):
-    # Get 6 random tours:
-    keys = data.tours.keys()
-    tkeys = random.sample(keys, len(keys))[:6]
-    tours = {k: data.tours[k] for k in tkeys}
+    tours = dict(random.sample(data.tours.items(), 6))
 
     context = {
         'subtitle': data.subtitle,
@@ -44,12 +23,32 @@ def main_view(request):
 
 
 def departure_view(request, departure):
-    return render(request, "tours/departure.html", context=deps[departure])
+    if departure not in data.departures:
+        return Http404
+    tours = {tour_id: tour for tour_id, tour in data.tours.items() if tour['departure'] == departure}
+    dep_title = 'Летим ' + data.departures[departure].replace('Из', 'из')
+    prices = [tour['price'] for tour in tours.values()]
+    price_min = min(prices)
+    price_max = max(prices)
+    nights = [tour['nights'] for tour in tours.values()]
+    nights_min = min(nights)
+    nights_max = max(nights)
+
+    return render(request, "tours/departure.html", context={
+        'dep_title': dep_title,
+        'tours_total': len(tours),
+        'tours': tours,
+        'price_min': price_min,
+        'price_max': price_max,
+        'nights_min': nights_min,
+        'nights_max': nights_max,
+    })
 
 
 def tour_view(request, tour_id):
-    context = {
+    if tour_id not in data.tours:
+        return Http404
+    return render(request, 'tours/tour.html', context={
         'tour_id': tour_id,
         'tour': data.tours[tour_id]
-    }
-    return render(request, 'tours/tour.html', context=context)
+    })

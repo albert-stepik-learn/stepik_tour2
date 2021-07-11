@@ -66,12 +66,12 @@ This is how it works in the project.
 ## Custom Context Processor
 
 0. In the application folder (``tours``, in this project), create a module with your custom processor,
-   e.g., ``custom_context_processor.py``.
+   e.g., ``context_processors.py``.
 0. In this module, add the content as in this project.
 0. In the ``settings.py`` file, add the custom Context Processor to the list of Custom Processors:
 
    ```bazaar
-   tours.custom_context_processor.common_context'
+   tours.context_processors.common_context'
    ```
 0. In a template (``base.html``, in this project), use the context parameters defined in the custom processor, e.g.:
 

@@ -10,15 +10,15 @@
 <body>
   <header class="container mt-3">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="/">{{ main_title }}</a>
+      <a class="navbar-brand" href="{% url 'main' %}">{{ main_title }}</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-          {% for key,val in all_departures.items %}
-          <li class="nav-item {% if key in request.path %}active{% endif %}">
-            <a class="nav-link" href="/departure/{{ key }}/">{{ val }}</a>
+          {% for departure_key, departure_name in all_departures.items %}
+          <li class="nav-item {% if departure_key in request.path %}active{% endif %}">
+            <a class="nav-link" href="{% url 'departure' departure=departure_key %}">{{ departure_name }}</a>
           </li>
           {% endfor %}
         </ul>

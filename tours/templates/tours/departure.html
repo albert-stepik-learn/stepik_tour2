@@ -1,8 +1,9 @@
 {% extends "tours/base.html" %}
+{% load ru_pluralize %}
 {% block main %}
   <main class="container mt-3">
     <h1 class="display-5 mt-4">{{ dep_title }}</h1>
-    <p class="mb-4"><strong>Найдено {{ tnumber }} {% if tnumber == 1 %} тур {% elif tnumber > 1 and tnumber < 5 %} тура {% else %} туров {% endif %}</strong>,
+    <p class="mb-4"><strong>Найдено {{ tours_total|ru_pluralize:"тур, тура, туров" }} </strong>,
       от {{ price_min }} до  {{ price_max }} и от {{ nights_min }} ночей до {{ nights_max }} ночей</p>
     <!-- CARDS -->
     <div class="row mt-5">
