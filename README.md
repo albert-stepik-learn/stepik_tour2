@@ -84,9 +84,7 @@ This is how it works in the project.
 The main page shows 6 random tours that the view code selects as follows:
 
    ```bazaar
-    keys = data.tours.keys()
-    tkeys = random.sample(keys, len(keys))[:6]
-    tours = {k: data.tours[k] for k in tkeys}
+   tours = dict(random.sample(data.tours.items(), 6))
    ```
 
 That's it. See you in the next project.
