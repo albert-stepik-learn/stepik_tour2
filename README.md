@@ -87,5 +87,9 @@ The main page shows 6 random tours that the view code selects as follows:
    tours = dict(random.sample(data.tours.items(), 6))
    ```
 
+## Publication
+
+I published the project site at [Heroku](https://albert-django.herokuapp.com/).
+
 That's it. See you in the next project.
 
