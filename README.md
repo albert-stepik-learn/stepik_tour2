@@ -57,11 +57,11 @@ To use this application, go through the following steps:
 
 This is how it works in the project.
 
-1. In the project folder (or maybe in the app folder), create the **templatetags** folder.
-2. In **templatetags**, create **__init__.py**.
-3. In **templatetags**, create **  ru_pluralize.py**, whose content is in this project.
+1. In the application folder (``tours/`` in this case), create the ``templatetags`` folder.
+2. In ``templatetags/``, create ``__init__.py``.
+3. In ``templatetags/``, create ``ru_pluralize.py``, whose content is in this project.
 4. In the template, after {% extends ...%}, add the module loading {% load ru_pluralize %}.
-5. Example of the use:  {{ days|ru_pluralize:"день, дня, дней" }}
+5. Use this as a filter in templates, for example:  {{ days|ru_pluralize:"день, дня, дней" }}
    
 ## Custom Context Processor
 
